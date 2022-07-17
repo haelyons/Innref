@@ -13,7 +13,8 @@ links = toc_page.soup.select("a")
 for link in links:
     address = link["href"]
     text = link.text
-    print(f"{text}: {address}")
+    #print(f"{text}: {address}")
+
 
 # Get link from a specific page and find title
 url = "https://wanderinginn.com/2016/08/07/1-03/"
@@ -21,11 +22,19 @@ chapter_page = urlopen(url)
 html_bytes = chapter_page.read()
 html = html_bytes.decode("utf-8")
 soup = BeautifulSoup(html, "html.parser")
+# <article class ="post-1910 page type-page status-publish hentry" id="post-1910"> = $0
+
 
 # Extract chapter code (1.03)
 title = soup.title.string
 chapter_code = re.findall("\d+\.\d+", title)
 print(chapter_code)
+
+
+# Extract class references
+body = soup.get_text()
+classes = re.findall(r'\[.*?\]', body)
+print(classes)
 
 
 """
