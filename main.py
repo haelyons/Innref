@@ -4,6 +4,23 @@ from urllib.request import urlopen
 import mechanicalsoup
 import re
 
+""" 
+Hélios Lyons
+30/7/22
+Innref (main.py)
+
+To-do:
+1. Read TOC and create key-value pairs
+2. Fetch url from TOC data-structure (equivalent of structs in python?)
+3. WIP: Extract text from limited body (only chapter content)
+
+Research:
+A. Python data-structures - equivalent to C structs, or best practice
+B. Database creation for saving information, or alternatives for speed and weight
+C. NLP to programatically sort names, places, classes, skills and attributes
+
+"""
+
 # Logic to print chapters and links from table of contents
 browser = mechanicalsoup.Browser()
 toc_url = "https://wanderinginn.com/table-of-contents/"
@@ -30,14 +47,17 @@ soup = BeautifulSoup(html, "html.parser")
 # Extract chapter code (1.03)
 title = soup.title.string
 chapter_code = re.findall("\d+\.\d+", title)
-print(chapter_code)
+#print(chapter_code)
 
 # Extract class references
 body = soup.get_text()
 brackets = re.findall(r'\[.*?\]', body)
-print(brackets)
+#print(brackets)
 
 level = soup.find(string=re.compile("Level"))
-print(level)
+#print(level)
 
-# To-do BODY: Add logic to only take chapter body (defined within article id="post-2226")
+# WIP BODY: Add logic to only take chapter body (defined within article id="post-2226" for chapter 2.34)
+content = soup.find_all(id='post-2226')
+# filteredContent = content.get_text()
+print(content)
