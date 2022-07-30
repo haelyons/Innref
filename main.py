@@ -19,6 +19,9 @@ A. Python data-structures - equivalent to C structs, or best practice
 B. Database creation for saving information, or alternatives for speed and weight
 C. NLP to programatically sort names, places, classes, skills and attributes
 
+Documentation:
+https://docs.google.com/document/d/12S1_J-qbng38_hZ9PT89PKkrwl4sMXRMc2Epe10xWfQ/edit 
+
 References:
 https://stackoverflow.com/questions/43923262/extract-article-from-website-to-text-using-beautifulsoup-and-python
 https://www.crummy.com/software/BeautifulSoup/bs4/doc/
