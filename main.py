@@ -17,7 +17,7 @@ TOC = []
 date_regex = r"(\d{4}/\d{2}/\d{2})"
 url_regex = re.compile("(\d{4}/\d{2}/\d{2})")
 urlTOC = 'https://wanderinginn.com/table-of-contents/'
-chapter = 643
+chapter = 0
 
 def process_toc(url):
     print("Beginning data processing...")
@@ -32,9 +32,11 @@ def process_toc(url):
 
     # Only take URLS with dates (chapters, glossary) -- most recent is duplicate
     sortedTOC = list(filter(url_regex.search, TOC))
-    print(sortedTOC)
+    splitTOC = sortedTOC[sortedTOC.index('https://wanderinginn.com/2016/07/27/1-00/'):]
 
-    return sortedTOC
+    print(splitTOC)
+
+    return splitTOC
 
 # Add logic to delimit output (remove | Wandering Inn)
 def find_title(url):
@@ -57,6 +59,8 @@ def main():
     sortedTOC = process_toc(urlTOC)
     title = find_title(sortedTOC[chapter])
     print(title)
+    chapters = len(sortedTOC)
+    print(chapters)
 
 if __name__ == "__main__":
     main()
