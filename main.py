@@ -17,12 +17,12 @@ TOC = []
 date_regex = r"(\d{4}/\d{2}/\d{2})"
 url_regex = re.compile("(\d{4}/\d{2}/\d{2})")
 urlTOC = 'https://wanderinginn.com/table-of-contents/'
-chapter = 0
+chapter = 596
 
 def process_toc(url):
     print("Beginning data processing...")
     page = urlopen(urlTOC).read()
-    soup = BeautifulSoup(page)
+    soup = BeautifulSoup(page, features="lxml")
     soup.prettify()
 
     # Iterate through TOC and collect chapter URLS
@@ -34,33 +34,48 @@ def process_toc(url):
     sortedTOC = list(filter(url_regex.search, TOC))
     splitTOC = sortedTOC[sortedTOC.index('https://wanderinginn.com/2016/07/27/1-00/'):]
 
-    print(splitTOC)
-
     return splitTOC
 
 # Add logic to delimit output (remove | Wandering Inn)
 def find_title(url):
-    # Get url find page title
+    # Get url, set parser, parse
     chapter_page = urlopen(url)
     html_bytes = chapter_page.read()
     html = html_bytes.decode("utf-8")
     soup2 = BeautifulSoup(html, "html.parser")
 
-    # Extract chapter code programatically
+    # Extract chapter title
     title = soup2.title.string
     chapter_code = re.findall("\d+\.\d+", title)
-
     delimited = title.split('|',1)[0]
     
     return delimited
 
+def analyse_body(url):
+    page = urlopen(url)
+    soup2 = BeautifulSoup(page, features="lxml")
+    body = soup2.get_text()
+
+    brackets = re.findall(r'\[.*?\]', body)
+
+    content = soup2.find_all(id='post-')
+    #filteredContent = content.get_text()
+    print(content)
+
+    return brackets
+
 def main():
     print("Entering main:")
     sortedTOC = process_toc(urlTOC)
+    
     title = find_title(sortedTOC[chapter])
     print(title)
+    
     chapters = len(sortedTOC)
     print(chapters)
+
+    brackets = analyse_body(sortedTOC[chapter])
+    print(brackets)
 
 if __name__ == "__main__":
     main()
@@ -74,16 +89,14 @@ level = soup2.find(string=re.compile("Level"))
 #print(level)
 
 # WIP BODY: Add logic to only take chapter body (defined within article id="post-2226" for chapter 2.34)
-content = soup2.find_all(id='post-2226')
-# filteredContent = content.get_text()
-# print(content)'
-
+content = soup2.find_all(id='post-')
 
 To-do:-
 1. DONE: Read TOC into dynamic data structure (python is fucking confusing)
 2. DONE: Fetch url from TOC data-structure (equivalent of structs in python?)
 3. DONE: Extract text from limited body (only chapter content)
-4. 
+4. DONE: Fix delimiting and extract chapter title
+5. DONE: Re-implement bracket (class, place, skill) extraction
 
 Documentation:
 https://docs.google.com/document/d/12S1_J-qbng38_hZ9PT89PKkrwl4sMXRMc2Epe10xWfQ/edit 
