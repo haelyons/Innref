@@ -92,11 +92,19 @@ level = soup2.find(string=re.compile("Level"))
 content = soup2.find_all(id='post-')
 
 To-do:-
-1. DONE: Read TOC into dynamic data structure (python is fucking confusing)
-2. DONE: Fetch url from TOC data-structure (equivalent of structs in python?)
-3. DONE: Extract text from limited body (only chapter content)
-4. DONE: Fix delimiting and extract chapter title
-5. DONE: Re-implement bracket (class, place, skill) extraction
+6. Implement a reliable, non-chapter specific way of extracting exclusively the body
+   from any chapter, to avoid picking up class references in comments :/ 
+
+7. Abstract chapter specific functions (new file) to be able to iterate through all chapters
+    - Start by collecting all titles, URLs and index for chapters
+    - Write to some file format or global data structure (CSV?)
+    - Seperate collection into volumes
+
+8. Expand data structure to include all references to classes (brackets)
+
+9. Create a seperate list which contains all references to a specific class in order
+    - Could also just sort existing list to find earliest reference (via URL date)
+
 
 Documentation:
 https://docs.google.com/document/d/12S1_J-qbng38_hZ9PT89PKkrwl4sMXRMc2Epe10xWfQ/edit 
