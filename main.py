@@ -17,7 +17,7 @@ TOC = []
 date_regex = r"(\d{4}/\d{2}/\d{2})"
 url_regex = re.compile("(\d{4}/\d{2}/\d{2})")
 urlTOC = 'https://wanderinginn.com/table-of-contents/'
-chapter = 400
+chapter = 643
 
 def process_toc(url):
     print("Beginning data processing...")
@@ -48,8 +48,8 @@ def find_title(url):
     title = soup2.title.string
     chapter_code = re.findall("\d+\.\d+", title)
 
-    delimited = title.split('|')
-
+    delimited = title.split('|',1)[0]
+    
     return delimited
 
 def main():
