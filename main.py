@@ -5,7 +5,7 @@ import re
 from py import process
 import regex
 
-""" 
+"""
 Hélios Lyons
 30/7/22
 Innref [-> WanderingStat] (main.py)
@@ -17,7 +17,7 @@ TOC = []
 date_regex = r"(\d{4}/\d{2}/\d{2})"
 url_regex = re.compile("(\d{4}/\d{2}/\d{2})")
 urlTOC = 'https://wanderinginn.com/table-of-contents/'
-chapter = 596
+chapter = 400
 
 def process_toc(url):
     print("Beginning data processing...")
@@ -36,6 +36,7 @@ def process_toc(url):
 
     return splitTOC
 
+# CHAPTER SPECIFIC FUNCTIONS
 # Add logic to delimit output (remove | Wandering Inn)
 def find_title(url):
     # Get url, set parser, parse
@@ -53,15 +54,15 @@ def find_title(url):
 
 def analyse_body(url):
     page = urlopen(url)
-    soup2 = BeautifulSoup(page, features="lxml")
-    body = soup2.get_text()
+    soup3 = BeautifulSoup(page, features="lxml")
+    body = soup3.get_text()
 
     brackets = re.findall(r'\[.*?\]', body)
-
-    content = soup2.find_all(id='post-')
-    #filteredContent = content.get_text()
-    print(content)
-
+    
+    content = ''
+    for content in soup3.select('article[id^="post-"]'):
+        print(content.get_text()) 
+        
     return brackets
 
 def main():
@@ -75,7 +76,7 @@ def main():
     print(chapters)
 
     brackets = analyse_body(sortedTOC[chapter])
-    print(brackets)
+    #print(brackets)
 
 if __name__ == "__main__":
     main()
@@ -89,12 +90,9 @@ level = soup2.find(string=re.compile("Level"))
 #print(level)
 
 # WIP BODY: Add logic to only take chapter body (defined within article id="post-2226" for chapter 2.34)
-content = soup2.find_all(id='post-')
+content = soup2.find_all(id='post-2226')
 
 To-do:-
-6. Implement a reliable, non-chapter specific way of extracting exclusively the body
-   from any chapter, to avoid picking up class references in comments :/ 
-
 7. Abstract chapter specific functions (new file) to be able to iterate through all chapters
     - Start by collecting all titles, URLs and index for chapters
     - Write to some file format or global data structure (CSV?)
