@@ -20,7 +20,7 @@ urlTOC = 'https://wanderinginn.com/table-of-contents/'
 chapter = 400
 
 def process_toc(url):
-    print("Beginning data processing...")
+    print("Processing TOC (Table of Contents)...")
     page = urlopen(urlTOC).read()
     soup = BeautifulSoup(page, features="lxml")
     soup.prettify()
@@ -40,6 +40,7 @@ def process_toc(url):
 # Add logic to delimit output (remove | Wandering Inn)
 def find_title(url):
     # Get url, set parser, parse
+    print("Parsing chapter title...")
     chapter_page = urlopen(url)
     html_bytes = chapter_page.read()
     html = html_bytes.decode("utf-8")
@@ -53,6 +54,7 @@ def find_title(url):
     return delimited
 
 def analyse_body(url):
+    print("Analysing chapter body...")
     page = urlopen(url)
     soup3 = BeautifulSoup(page, features="lxml")
     body = soup3.get_text()
@@ -66,7 +68,7 @@ def analyse_body(url):
     return brackets
 
 def main():
-    print("Entering main:")
+    print("Entering main...")
     sortedTOC = process_toc(urlTOC)
     
     title = find_title(sortedTOC[chapter])
