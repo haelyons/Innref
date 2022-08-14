@@ -35,6 +35,10 @@ def process_toc(url):
     sortedTOC = list(filter(url_regex.search, TOC))
     splitTOC = sortedTOC[sortedTOC.index('https://wanderinginn.com/2016/07/27/1-00/'):]
 
+    with open("TOC.txt", "a") as 
+    writeTOC.write(splitTOC)
+    writeTOC.close()
+
     return splitTOC
 
 # CHAPTER SPECIFIC FUNCTIONS
@@ -60,6 +64,9 @@ def analyse_body(url):
     soup3 = BeautifulSoup(page, features="lxml")
     body = soup3.get_text()
 
+
+    # Find RE syntax for finding the brackets including
+    # the rest of the sentence
     brackets = re.findall(r'\[.*?\]', body)
 
     print(brackets)
@@ -78,15 +85,21 @@ def analyse_body(url):
 def main():
     print("Entering main...")
     sortedTOC = process_toc(urlTOC)
-    
-    title = find_title(sortedTOC[chapter])
-    print(title)
-    
+
     chapters = len(sortedTOC)
     print(chapters)
 
-    brackets = analyse_body(sortedTOC[chapter])
-    #print(brackets)
+    for chapNum in range(10):
+        title = find_title(sortedTOC[chapter])
+        print(title)
+
+        brackets = analyse_body(sortedTOC[chapter])
+        #print(brackets)
+        
+        writeChapter = open("%s.txt" % chapNum, "a")
+        writeChapter.write(title)
+        #writeChapter.write(brackets)
+        writeChapter.close()
 
 if __name__ == "__main__":
     main()
