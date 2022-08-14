@@ -66,18 +66,9 @@ def analyse_body(url):
     soup3 = BeautifulSoup(page, features="lxml")
     body = soup3.get_text()
 
-
     # Find RE syntax for finding the brackets including
     # the rest of the sentence
     brackets = re.findall(r'\[.*?\]', body)
-
-    print(brackets)
-    
-    """
-    content = ''
-    for content in soup3.select('article[id^="post-"]'):
-        print(content.get_text()) 
-    """
 
     #level = soup3.find(string=re.compile("Level"))
     #print(level)
