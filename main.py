@@ -18,8 +18,8 @@ TOC = []
 date_regex = r"(\d{4}/\d{2}/\d{2})"
 url_regex = re.compile("(\d{4}/\d{2}/\d{2})")
 urlTOC = 'https://wanderinginn.com/table-of-contents/'
-chapter = 400
 
+# Parse table of contents to only include chapters and write to file
 def process_toc(url):
     print("Processing TOC (Table of Contents)...")
     page = urlopen(urlTOC).read()
@@ -38,17 +38,15 @@ def process_toc(url):
     with open("TOC.txt", "w") as writeTOC:
         for item in splitTOC:
             writeTOC.write("%s\n" % item)
-        print("Wrote sorted URLs to TOC.txt")
+        print("Wrote sorted URLs to TOC...")
 
     writeTOC.close()
 
     return splitTOC
 
-# CHAPTER SPECIFIC FUNCTIONS
-# Add logic to delimit output (remove | Wandering Inn)
+# Parse the title of a chapter (code or interlude title) and write to string
 def find_title(url):
     # Get url, set parser, parse
-    print("Parsing chapter title...")
     chapter_page = urlopen(url)
     html_bytes = chapter_page.read()
     html = html_bytes.decode("utf-8")
@@ -58,9 +56,10 @@ def find_title(url):
     title = soup2.title.string
     chapter_code = re.findall("\d+\.\d+", title)
     delimited = title.split('|',1)[0]
-    
+
     return delimited
 
+# Extract the body of a chapter and parse all square-bracketed text
 def analyse_body(url):
     print("Analysing chapter body...")
     page = urlopen(url)
@@ -88,20 +87,21 @@ def analyse_body(url):
 def main():
     print("Entering main...")
     sortedTOC = process_toc(urlTOC)
+    print("\n")
 
     chapters = len(sortedTOC)
-    print(chapters)
 
     for chapNum in range(10):
-        title = find_title(sortedTOC[chapter])
+        title = find_title(sortedTOC[chapNum])
 
-        brackets = analyse_body(sortedTOC[chapter])
+        brackets = analyse_body(sortedTOC[chapNum])
         
-        with open("%/sTitles.txt" % title, "w") as writeContent:
+        fileTitle = '{}.txt'.format(title)
+        with open(fileTitle, "w") as writeContent:
             for item in brackets:
                 writeContent.write("%s\n" % item)
-                writeContent.write(brackets)
-        print("Wrote sorted URLs to TOC.txt")
+        print("Processed...%s" % fileTitle)
+        print("\n")
 
     writeContent.close()
 
@@ -112,9 +112,10 @@ if __name__ == "__main__":
 
 To-do:-
 7. Abstract chapter specific functions (new file) to be able to iterate through all chapters
-    - Start by collecting all titles, URLs and index for chapters
-    - Write to some file format or global data structure (CSV?)
+    DONE Start by collecting all titles, URLs and index for chapters
+    DONE Write to some file format or global data structure (CSV?)
     - Seperate collection into volumes
+    - Fix filename assignment
 
 8. Create chapter specific array of body references. Keep in mind that the indexes for the 
    positions of each reference in the body, as part of sentences and paragraphs, will be 
