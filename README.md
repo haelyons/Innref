@@ -14,7 +14,7 @@ having to spend an inordinate amount of time re-reading (as enjoyable as this is
 I have implemented so far:
 - A basic web crawler which parses the table of contents to provide a data-structure with all the chapters, removing repeated chapters
 - Parsing all the titles (including Interludes) and sorting all the chapters by date
-- Extracting the chapter body from a selected chapter and finding all the bracketed text (class and skill references) and all mentions of levels...
+- Extracting the chapter body from a selected chapter and finding all the bracketed text (class and skill references) and all mentions of levels
 
 As you may suspect, there is a lot to do....   :)
 

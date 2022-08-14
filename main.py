@@ -1,6 +1,7 @@
 from ast import parse
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
+import itertools
 import re
 from py import process
 import regex
@@ -60,10 +61,18 @@ def analyse_body(url):
     body = soup3.get_text()
 
     brackets = re.findall(r'\[.*?\]', body)
+    bracketStruct = itertools.chain(*[x.split(',') for x in brackets])
+
+    print(brackets)
     
+    """
     content = ''
     for content in soup3.select('article[id^="post-"]'):
         print(content.get_text()) 
+    """
+
+    #level = soup3.find(string=re.compile("Level"))
+    #print(level)
         
     return brackets
 
@@ -84,15 +93,6 @@ if __name__ == "__main__":
     main()
 
 """
-body = soup2.get_text()
-brackets = re.findall(r'\[.*?\]', body)
-#print(brackets)
-
-level = soup2.find(string=re.compile("Level"))
-#print(level)
-
-# WIP BODY: Add logic to only take chapter body (defined within article id="post-2226" for chapter 2.34)
-content = soup2.find_all(id='post-2226')
 
 To-do:-
 7. Abstract chapter specific functions (new file) to be able to iterate through all chapters
@@ -100,7 +100,9 @@ To-do:-
     - Write to some file format or global data structure (CSV?)
     - Seperate collection into volumes
 
-8. Expand data structure to include all references to classes (brackets)
+8. Create chapter specific array of body references. Keep in mind that the indexes for the 
+   positions of each reference in the body, as part of sentences and paragraphs, will be 
+   essential for eventually parsing Class and Skill content
 
 9. Create a seperate list which contains all references to a specific class in order
     - Could also just sort existing list to find earliest reference (via URL date)
