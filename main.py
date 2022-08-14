@@ -61,7 +61,6 @@ def analyse_body(url):
     body = soup3.get_text()
 
     brackets = re.findall(r'\[.*?\]', body)
-    bracketStruct = itertools.chain(*[x.split(',') for x in brackets])
 
     print(brackets)
     
