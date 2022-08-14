@@ -35,8 +35,11 @@ def process_toc(url):
     sortedTOC = list(filter(url_regex.search, TOC))
     splitTOC = sortedTOC[sortedTOC.index('https://wanderinginn.com/2016/07/27/1-00/'):]
 
-    with open("TOC.txt", "a") as 
-    writeTOC.write(splitTOC)
+    with open("TOC.txt", "w") as writeTOC:
+        for item in splitTOC:
+            writeTOC.write("%s\n" % item)
+        print("Wrote sorted URLs to TOC.txt")
+
     writeTOC.close()
 
     return splitTOC
@@ -91,15 +94,16 @@ def main():
 
     for chapNum in range(10):
         title = find_title(sortedTOC[chapter])
-        print(title)
 
         brackets = analyse_body(sortedTOC[chapter])
-        #print(brackets)
         
-        writeChapter = open("%s.txt" % chapNum, "a")
-        writeChapter.write(title)
-        #writeChapter.write(brackets)
-        writeChapter.close()
+        with open("%/sTitles.txt" % title, "w") as writeContent:
+            for item in brackets:
+                writeContent.write("%s\n" % item)
+                writeContent.write(brackets)
+        print("Wrote sorted URLs to TOC.txt")
+
+    writeContent.close()
 
 if __name__ == "__main__":
     main()
