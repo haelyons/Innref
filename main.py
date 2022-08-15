@@ -19,7 +19,6 @@ date_regex = r"(\d{4}/\d{2}/\d{2})"
 url_regex = re.compile("(\d{4}/\d{2}/\d{2})")
 urlTOC = 'https://wanderinginn.com/table-of-contents/'
 
-# NEED TO REMOVE GLOSSARY FROM LIST
 # Parse table of contents to only include chapters and write to file
 def process_toc(url):
     print("Processing TOC (Table of Contents)...")
@@ -36,14 +35,16 @@ def process_toc(url):
     sortedTOC = list(filter(url_regex.search, TOC))
     splitTOC = sortedTOC[sortedTOC.index('https://wanderinginn.com/2016/07/27/1-00/'):]
 
+    cleanTOC = [x for x in splitTOC if "glossary" not in x]
+
     with open("TOC.txt", "w") as writeTOC:
-        for item in splitTOC:
+        for item in cleanTOC:
             writeTOC.write("%s\n" % item)
         print("Wrote sorted URLs to TOC...")
 
     writeTOC.close()
 
-    return splitTOC
+    return cleanTOC
 
 # Parse the title of a chapter (code or interlude title) and write to string
 def find_title(url):
