@@ -18,6 +18,7 @@ TOC = []
 date_regex = r"(\d{4}/\d{2}/\d{2})"
 url_regex = re.compile("(\d{4}/\d{2}/\d{2})")
 urlTOC = 'https://wanderinginn.com/table-of-contents/'
+totalwords = 0
 
 # Parse table of contents to only include chapters and write to file
 def process_toc(url):
@@ -77,6 +78,7 @@ def analyse_body(url):
     words = re.findall('\w+', body)
     wordcount = len(words)
     print(wordcount, "words")
+    totalwords += wordcount
 
     #level = soup3.find(string=re.compile("Level"))
     #print(level)
@@ -99,7 +101,7 @@ def main():
     # VOLUME 7: 386 - 480
     # VOLUME 8: 481+
 
-    for chapNum in range(10):
+    for chapNum in range(65):
         title = find_title(sortedTOC[chapNum])
 
         brackets = analyse_body(sortedTOC[chapNum])
@@ -112,6 +114,8 @@ def main():
         print("\n")
 
     writeContent.close()
+
+    print(totalwords)
 
 if __name__ == "__main__":
     main()
