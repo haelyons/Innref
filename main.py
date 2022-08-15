@@ -19,6 +19,7 @@ date_regex = r"(\d{4}/\d{2}/\d{2})"
 url_regex = re.compile("(\d{4}/\d{2}/\d{2})")
 urlTOC = 'https://wanderinginn.com/table-of-contents/'
 
+# NEED TO REMOVE GLOSSARY FROM LIST
 # Parse table of contents to only include chapters and write to file
 def process_toc(url):
     print("Processing TOC (Table of Contents)...")
@@ -82,6 +83,10 @@ def main():
 
     chapters = len(sortedTOC)
 
+    # VOLUME 1: 1 - 66 
+    # VOLUME 2: 67 - 122
+    # VOLUME 3: 123 - 174
+    # VOLUME 4: 175 - 236 
     for chapNum in range(10):
         title = find_title(sortedTOC[chapNum])
 
