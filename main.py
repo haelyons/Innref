@@ -72,6 +72,12 @@ def analyse_body(url):
     # the rest of the sentence
     brackets = re.findall(r'\[.*?\]', body)
 
+    wordcount = 0
+    totalwordcount = 0
+    words = re.findall('\w+', body)
+    wordcount = len(words)
+    print(wordcount, "words")
+
     #level = soup3.find(string=re.compile("Level"))
     #print(level)
         
@@ -88,6 +94,11 @@ def main():
     # VOLUME 2: 67 - 122
     # VOLUME 3: 123 - 174
     # VOLUME 4: 175 - 236 
+    # VOLUME 5: 237 - 308
+    # VOLUME 6: 309 - 385
+    # VOLUME 7: 386 - 480
+    # VOLUME 8: 481+
+
     for chapNum in range(10):
         title = find_title(sortedTOC[chapNum])
 
