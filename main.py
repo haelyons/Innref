@@ -18,7 +18,8 @@ TOC = []
 date_regex = r"(\d{4}/\d{2}/\d{2})"
 url_regex = re.compile("(\d{4}/\d{2}/\d{2})")
 urlTOC = 'https://wanderinginn.com/table-of-contents/'
-totalwords = 0
+volumeCount = 0
+
 
 # Parse table of contents to only include chapters and write to file
 def process_toc(url):
@@ -74,11 +75,11 @@ def analyse_body(url):
     brackets = re.findall(r'\[.*?\]', body)
 
     wordcount = 0
-    totalwordcount = 0
     words = re.findall('\w+', body)
     wordcount = len(words)
     print(wordcount, "words")
-    totalwords += wordcount
+    
+    volumeCount =+ wordcount
 
     #level = soup3.find(string=re.compile("Level"))
     #print(level)
@@ -115,7 +116,7 @@ def main():
 
     writeContent.close()
 
-    print(totalwords)
+    print(volumeCount)
 
 if __name__ == "__main__":
     main()
@@ -126,7 +127,7 @@ To-do:-
 7. Abstract chapter specific functions (new file) to be able to iterate through all chapters
     DONE Start by collecting all titles, URLs and index for chapters
     DONE Write to some file format or global data structure (CSV?)
-    - Seperate collection into volumes
+    WIP Seperate collection into volumes
     - Fix filename assignment
 
 8. Create chapter specific array of body references. Keep in mind that the indexes for the 
