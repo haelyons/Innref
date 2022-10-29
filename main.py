@@ -117,6 +117,7 @@ def main():
     writeContent.close()
 
     print(volumeCount)
+    print(chapNum)
 
 if __name__ == "__main__":
     main()
