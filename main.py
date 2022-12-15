@@ -138,6 +138,10 @@ To-do:-
 9. Create a seperate list which contains all references to a specific class in order
     - Could also just sort existing list to find earliest reference (via URL date)
 
+10. Count the number of chapters programatically, add to a seperate 'stats' file, which can 
+    average/sum word counts in chapters, as well as providing a providing a 'live' counter of the total
+    word limit
+
 
 Documentation:
 https://docs.google.com/document/d/12S1_J-qbng38_hZ9PT89PKkrwl4sMXRMc2Epe10xWfQ/edit 

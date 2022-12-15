@@ -13,5 +13,5 @@ I have implemented so far:
 - Parsing all the titles (including Interludes) and sorting all the chapters into a neat TOC
 - Extracting the chapter body from a selected chapter URL and finding all the bracketed text (class and skill references) and all mentions of levels
 
-As you may suspect, there is a lot to do....   :)
+As you may suspect, there is a lot to do...   :)
 
