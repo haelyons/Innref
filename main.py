@@ -19,6 +19,8 @@ date_regex = r"(\d{4}/\d{2}/\d{2})"
 url_regex = re.compile("(\d{4}/\d{2}/\d{2})")
 urlTOC = 'https://wanderinginn.com/table-of-contents/'
 volumeCount = 0
+chapterCount = 0
+totalWordCount = 0
 
 
 # Parse table of contents to only include chapters and write to file
