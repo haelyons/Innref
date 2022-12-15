@@ -1,5 +1,4 @@
 from ast import parse
-from msilib.schema import TextStyle
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
 import itertools
@@ -73,10 +72,6 @@ def analyse_body(url):
     soup3 = BeautifulSoup(page, features="lxml")
     body = soup3.get_text()
     texts = soup3.find('entry-content')
-    '''
-    for text in texts:
-        print(text.get_text())
-    '''
 
     # Find RE syntax for finding the brackets including
     # the rest of the sentence
