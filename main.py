@@ -1,4 +1,5 @@
 from ast import parse
+from msilib.schema import TextStyle
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
 import itertools
@@ -19,8 +20,8 @@ date_regex = r"(\d{4}/\d{2}/\d{2})"
 url_regex = re.compile("(\d{4}/\d{2}/\d{2})")
 urlTOC = 'https://wanderinginn.com/table-of-contents/'
 volumeCount = 0
-chapterCount = 0
 totalWordCount = 0
+chapsToPrint = 5
 
 
 # Parse table of contents to only include chapters and write to file
@@ -71,6 +72,11 @@ def analyse_body(url):
     page = urlopen(url)
     soup3 = BeautifulSoup(page, features="lxml")
     body = soup3.get_text()
+    texts = soup3.find('entry-content')
+    '''
+    for text in texts:
+        print(text.get_text())
+    '''
 
     # Find RE syntax for finding the brackets including
     # the rest of the sentence
@@ -104,7 +110,7 @@ def main():
     # VOLUME 7: 386 - 480
     # VOLUME 8: 481+
 
-    for chapNum in range(65):
+    for chapNum in range(chapsToPrint):
         title = find_title(sortedTOC[chapNum])
 
         brackets = analyse_body(sortedTOC[chapNum])
