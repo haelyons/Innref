@@ -128,6 +128,8 @@ if __name__ == "__main__":
 """
 
 To-do:-
+6. Fix extraction of body content to not include comments
+
 7. Abstract chapter specific functions (new file) to be able to iterate through all chapters
     DONE Start by collecting all titles, URLs and index for chapters
     DONE Write to some file format or global data structure (CSV?)
