@@ -127,8 +127,10 @@ if __name__ == "__main__":
 
 """
 
-To-do:-
+To-do:
 6. Fix extraction of body content to not include comments
+
+11. Improve speed of extraction, currently takes ages 
 
 7. Abstract chapter specific functions (new file) to be able to iterate through all chapters
     DONE Start by collecting all titles, URLs and index for chapters
