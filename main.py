@@ -8,23 +8,23 @@ import regex
 
 """
 Hélios Lyons
-30/7/22
+27/12/22
 Innref [-> WanderingStat] (main.py)
 
 """
 
-# REGEX rule for date extraction (chapter titles)
+# REGEX
 date_regex = r"(\d{4}/\d{2}/\d{2})"
 url_regex = re.compile("(\d{4}/\d{2}/\d{2})")
 
-# Globals
+# GLOBALS
 TOC = [] 
 urlTOC = 'https://wanderinginn.com/table-of-contents/'
 totalWords = 0
-
-# Locals
-chapterWords = 0
 chapsToPrint = 15 # = DESIRED NUM. OF CHAPS + 1
+
+# LOCALS
+chapterWords = 0
 
 # Parse table of contents to only include chapters and write to file
 def process_toc(url):
@@ -78,17 +78,15 @@ def analyse_body(url):
     Title is stored in the header class "entry header"
     Body is stored in the div class "entry content"
     '''
-
-    body = soup3.get_text()
     
-    actual_body = soup3.find('div', class_='entry-content').text
-    print(actual_body)
+    body = soup3.find('div', class_='entry-content').text
+    print(body)
 
-    brackets = re.findall(r'\[.*?\]', actual_body)
+    brackets = re.findall(r'\[.*?\]', body)
 
     # Calculate local chapter number + running sum
     chapterWords = 0
-    words = re.findall('\w+', actual_body)
+    words = re.findall('\w+', body)
     chapterWords = len(words)
     print(chapterWords, "words")
     global totalWords
@@ -96,6 +94,9 @@ def analyse_body(url):
 
     level = soup3.find(string=re.compile("Level"))
     print(level)
+
+    # Source for finding out how to extract body text
+    # https://stackoverflow.com/questions/49205608/how-can-i-extract-the-text-part-of-a-blog-page-while-web-scraping-using-beautifu
         
     return brackets
 
@@ -140,27 +141,22 @@ if __name__ == "__main__":
 """
 
 To-do:
-6. Fix extraction of body content to not include comments
 
-11. Improve speed of extraction, currently takes ages 
+END FEATURE SET GOALS:
+- Index of character specific Classes, Levels, and Skills with chapter references
+- Live total-word counter, per chapter word counter
 
-7. Abstract chapter specific functions (new file) to be able to iterate through all chapters
-    DONE Start by collecting all titles, URLs and index for chapters
-    DONE Write to some file format or global data structure (CSV?)
-    WIP Seperate collection into volumes
-    - Fix filename assignment
+SYSTEM VIEW:
+- Training a named entity recognition model based on the data extracted here
+  seems most feasible. Key questions:
 
-8. Create chapter specific array of body references. Keep in mind that the indexes for the 
-   positions of each reference in the body, as part of sentences and paragraphs, will be 
-   essential for eventually parsing Class and Skill content
+ITERATING ON CURRENT FEATURE SET:
+1. Speed up process of getting chapter information. The sooner this is done,
+   the easier it will be to implement
 
-9. Create a seperate list which contains all references to a specific class in order
-    - Could also just sort existing list to find earliest reference (via URL date)
-
-10. Count the number of chapters programatically, add to a seperate 'stats' file, which can 
-    average/sum word counts in chapters, as well as providing a providing a 'live' counter of the total
-    word limit
-
+2. Improve collection of Levelling data -- is "Level" always capitalised? What are 
+   the different sentence structures in which this word occurs, is it problematic
+   that in-world characters discuss levels for this approach.
 
 Documentation:
 https://docs.google.com/document/d/12S1_J-qbng38_hZ9PT89PKkrwl4sMXRMc2Epe10xWfQ/edit 
