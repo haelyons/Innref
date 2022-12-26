@@ -13,15 +13,18 @@ Innref [-> WanderingStat] (main.py)
 
 """
 
-# GLOBAL VARIABLES
-TOC = [] 
+# REGEX rule for date extraction (chapter titles)
 date_regex = r"(\d{4}/\d{2}/\d{2})"
 url_regex = re.compile("(\d{4}/\d{2}/\d{2})")
-urlTOC = 'https://wanderinginn.com/table-of-contents/'
-volumeCount = 0
-totalWordCount = 0
-chapsToPrint = 5
 
+# Globals
+TOC = [] 
+urlTOC = 'https://wanderinginn.com/table-of-contents/'
+totalWords = 0
+
+# Locals
+chapterWords = 0
+chapsToPrint = 5 # ACTUAL + 1
 
 # Parse table of contents to only include chapters and write to file
 def process_toc(url):
@@ -65,27 +68,25 @@ def find_title(url):
 
     return delimited
 
-# Extract the body of a chapter and parse all square-bracketed text
+# Extract the body of a chapter, parse all square-bracketed text
 def analyse_body(url):
     print("Analysing chapter body...")
     page = urlopen(url)
     soup3 = BeautifulSoup(page, features="lxml")
     body = soup3.get_text()
-    texts = soup3.find('entry-content')
 
-    # Find RE syntax for finding the brackets including
-    # the rest of the sentence
     brackets = re.findall(r'\[.*?\]', body)
 
-    wordcount = 0
+    chapterWords = 0
     words = re.findall('\w+', body)
-    wordcount = len(words)
-    print(wordcount, "words")
+    chapterWords = len(words)
+    print(chapterWords, "words")
     
-    volumeCount =+ wordcount
+    global totalWords
+    totalWords += chapterWords
 
-    #level = soup3.find(string=re.compile("Level"))
-    #print(level)
+    level = soup3.find(string=re.compile("Level"))
+    print(level)
         
     return brackets
 
@@ -119,7 +120,7 @@ def main():
 
     writeContent.close()
 
-    print(volumeCount)
+    print(totalWords)
     print(chapNum)
 
 if __name__ == "__main__":
