@@ -24,7 +24,7 @@ totalWords = 0
 
 # Locals
 chapterWords = 0
-chapsToPrint = 5 # ACTUAL + 1
+chapsToPrint = 15 # = DESIRED NUM. OF CHAPS + 1
 
 # Parse table of contents to only include chapters and write to file
 def process_toc(url):
@@ -63,7 +63,7 @@ def find_title(url):
 
     # Extract chapter title
     title = soup2.title.string
-    chapter_code = re.findall("\d+\.\d+", title)
+    # chapter_code = re.findall("\d+\.\d+", title)
     delimited = title.split('|',1)[0]
 
     return delimited
@@ -73,15 +73,24 @@ def analyse_body(url):
     print("Analysing chapter body...")
     page = urlopen(url)
     soup3 = BeautifulSoup(page, features="lxml")
+    
+    '''
+    Title is stored in the header class "entry header"
+    Body is stored in the div class "entry content"
+    '''
+
     body = soup3.get_text()
+    
+    actual_body = soup3.find('div', class_='entry-content').text
+    print(actual_body)
 
-    brackets = re.findall(r'\[.*?\]', body)
+    brackets = re.findall(r'\[.*?\]', actual_body)
 
+    # Calculate local chapter number + running sum
     chapterWords = 0
-    words = re.findall('\w+', body)
+    words = re.findall('\w+', actual_body)
     chapterWords = len(words)
     print(chapterWords, "words")
-    
     global totalWords
     totalWords += chapterWords
 
