@@ -9,7 +9,7 @@ import regex
 """
 Hélios Lyons
 27/12/22
-Innref [-> WanderingStat] (main.py)
+Innref [-> WonderingIn] (main.py)
 
 """
 
@@ -148,7 +148,8 @@ END FEATURE SET GOALS:
 
 SYSTEM VIEW:
 - Training a named entity recognition model based on the data extracted here
-  seems most feasible. Key questions:
+  seems most feasible
+- Add feature set to README with a checklist on what is included
 
 ITERATING ON CURRENT FEATURE SET:
 1. Speed up process of getting chapter information. The sooner this is done,
