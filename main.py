@@ -104,16 +104,18 @@ def main():
     # VOLUME 5: 237 - 308
     # VOLUME 6: 309 - 385
     # VOLUME 7: 386 - 480
-    # VOLUME 8: 481+
+    # VOLUME 8: 481 - 584
+    # VOLUME 9: 585 - 628+
 
+    # Extract data and write to fule
     for chapNum in range(chapsToPrint):
-        title = find_title(sortedTOC[chapNum])
+        title = find_title(sortedTOC[chapNum]) # Extract title
 
-        brackets = analyse_body(sortedTOC[chapNum])
+        brackets = analyse_body(sortedTOC[chapNum]) # Extract brackets
         
-        fileTitle = '{}.txt'.format(title)
+        fileTitle = '{}.txt'.format(title) # Add title to text file
         with open(fileTitle, "w") as writeContent:
-            for item in brackets:
+            for item in brackets: # Iterate through chapter specific array of bracketed text
                 writeContent.write("%s\n" % item)
         print("Processed...%s" % fileTitle)
         print("\n")
