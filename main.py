@@ -1,10 +1,12 @@
 from ast import parse
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
-import itertools
+
+from flair.data import Sequence
+from 
+
 import re
 from py import process
-import regex
 
 """
 Hélios Lyons
@@ -25,6 +27,7 @@ chapsToPrint = 15 # = DESIRED NUM. OF CHAPS + 1
 
 # LOCALS
 chapterWords = 0
+body = "test"
 
 # Parse table of contents to only include chapters and write to file
 def process_toc(url):
@@ -69,36 +72,37 @@ def find_title(url):
     return delimited
 
 # Extract the body of a chapter, parse all square-bracketed text
-def analyse_body(url):
+def initial_body_anaysis(url):
     print("Analysing chapter body...")
     page = urlopen(url)
     soup3 = BeautifulSoup(page, features="lxml")
     
-    '''
-    Title is stored in the header class "entry header"
-    Body is stored in the div class "entry content"
-    '''
+    #Title is stored in entry-header, body is stored in entry-content
     
     body = soup3.find('div', class_='entry-content').text
     print(body)
 
     brackets = re.findall(r'\[.*?\]', body)
+    level = soup3.find(string=re.compile("Level"))
+    print(level)
 
     # Calculate local chapter number + running sum
     chapterWords = 0
     words = re.findall('\w+', body)
     chapterWords = len(words)
     print(chapterWords, "words")
-    global totalWords
+    global totalWordss
     totalWords += chapterWords
-
-    level = soup3.find(string=re.compile("Level"))
-    print(level)
 
     # Source for finding out how to extract body text
     # https://stackoverflow.com/questions/49205608/how-can-i-extract-the-text-part-of-a-blog-page-while-web-scraping-using-beautifu
         
     return brackets
+
+def ner_body_analysis(body):
+
+
+    return extracted
 
 def main():
     print("Entering main...")
@@ -121,7 +125,7 @@ def main():
     for chapNum in range(chapsToPrint):
         title = find_title(sortedTOC[chapNum]) # Extract title
 
-        brackets = analyse_body(sortedTOC[chapNum]) # Extract brackets
+        brackets = initial_body_anaysis(sortedTOC[chapNum]) # Extract brackets
         
         fileTitle = '{}.txt'.format(title) # Add title to text file
         with open(fileTitle, "w") as writeContent:
