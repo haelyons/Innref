@@ -79,11 +79,11 @@ def initial_body_anaysis(url):
     
     # Title is stored in entry-header, body is stored in entry-content
     body = soup3.find('div', class_='entry-content').text # Extract body and remove tags
-    print(body)
+    #print(body)
 
     brackets = re.findall(r'\[.*?\]', body) # Extract bracketed text from body
-    level = soup3.find(string=re.compile("levels")) # Extract sentences containing word 'level'
-    print(level)
+    #level = soup3.find(string=re.compile("levels")) # Extract sentences containing word 'level'
+    #print(level)
 
     # Calculate local chapter number + running sum
     chapterWords = 0
@@ -100,10 +100,15 @@ def initial_body_anaysis(url):
 
 # Extract the body of a chapter, get sentences with [], return
 def training_data_extraction(url):
+    print("Extract training data...\n")
+    page = urlopen(url)
+    soup3 = BeautifulSoup(page, features="lxml")
+    
+    # Title is stored in entry-header, body is stored in entry-content
+    body = soup3.find('div', class_='entry-content').text # Extract body and remove tags
+    #print(body)
 
-    print("Analysing chapter body...")
-
-    # bracketReferences = re.findall(r"([^!?.]*\[.*?\][^.!?]*\.)", body)
+    bracketReferences = re.findall(r"([^!?.]*\[.*?\][^.!?]*\.)", body)
     for ref in bracketReferences:
         print("%s\n", ref)
 
@@ -174,11 +179,11 @@ def main():
 
         fileTitle = '{}.txt'.format(title) # Add title to text file
         with open(fileTitle, "w") as writeContent:
-            for item in brackets: # Iterate through chapter specific array of bracketed text
-                writeContent.write("%s\n" % item)
+            for bracket in brackets:
+                writeContent.write("%s\n" % bracket)
 
-            for item in bracketSentences:
-                writeContent.write("%s\n" % item)
+            for sentence in bracketSentences:
+                writeContent.write("%s\n" % sentence)
             
             """
             for single, sentence in zip(brackets, bracketSentences):
@@ -187,7 +192,7 @@ def main():
                 writeContent.write("%s" % single, "%s" % sentence, "\n")
             """
 
-        print("Processed...%s" % fileTitle, "\n")
+        print("Processed...%s\n" % fileTitle)
 
     writeContent.close()
     print("Printed ", chapNum, " chapters.")
