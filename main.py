@@ -2,8 +2,6 @@ from ast import parse
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
 
-from flair.data import Sequence
-from 
 
 import re
 from py import process
@@ -19,6 +17,9 @@ Innref [-> WonderingInn] (main.py)
 # REGEX
 date_regex = r"(\d{4}/\d{2}/\d{2})"
 url_regex = re.compile("(\d{4}/\d{2}/\d{2})")
+bracket_regex = r'\[.*?\]'
+bracket_sentence_regex = r'([^!?.]*\[.*?\][^.!?]*\.)'
+
 
 # GLOBALS
 TOC = [] 
@@ -82,16 +83,21 @@ def initial_body_anaysis(url):
     body = soup3.find('div', class_='entry-content').text # Extract body and remove tags
     print(body)
 
-    brackets = re.findall(r'\[.*?\]', body) # Extract bracketed text from body
-    level = soup3.find(string=re.compile("Level")) # Extract mentions of 'level' from body
+    brackets = re.findall(bracket_regex, body) # Extract bracketed text from body
+    level = soup3.find(string=re.compile("levels")) # Extract sentences containing word 'level'
     print(level)
+
+    bracketReferences = re.findall(bracket_sentence_regex,body)
+    print(bracketReferences)
+    #bracketReferences = soup3.find(string=re.compile(r'\[.*?\]'))
+    #print(bracketReferences)
 
     # Calculate local chapter number + running sum
     chapterWords = 0
     words = re.findall('\w+', body)
     chapterWords = len(words)
     print(chapterWords, "words")
-    global totalWordss
+    global totalWords
     totalWords += chapterWords
 
     # Source for finding out how to extract body text
@@ -164,7 +170,7 @@ def main():
     VOLUME 9: 585 - 628+
     """
 
-    # Extract data and write to fule
+    # Run extraction functions and write to file
     for chapNum in range(chapsToPrint):
         title = find_title(sortedTOC[chapNum]) # Extract title
 
