@@ -206,17 +206,11 @@ END FEATURE SET GOALS:
     - Average count per chapter
     - Number of chapters
 
-SYSTEM VIEW:
-- Training a named entity recognition model based on the data extracted here
-- Add feature set to README with a checklist on what is included
-
 ITERATING ON CURRENT FEATURE SET:
 1. Speed up process of getting chapter information. The sooner this is done,
    the easier it will be to implement
 
-2. Improve collection of Levelling data -- is "Level" always capitalised? What are 
-   the different sentence structures in which this word occurs, is it problematic
-   that in-world characters discuss levels for this approach.
+2. Need to distinguish between types of bracketed references. There seem to be 2:
 
 Documentation:
 https://docs.google.com/document/d/12S1_J-qbng38_hZ9PT89PKkrwl4sMXRMc2Epe10xWfQ/edit 
