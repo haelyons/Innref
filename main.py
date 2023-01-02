@@ -27,7 +27,7 @@ bracketList = []
 
 # LOCALS
 chapterWords = 0
-body = "test"
+body = "stripped chapter body"
 
 # Parse table of contents to only include chapters and write to file
 def process_toc(url):
@@ -78,10 +78,11 @@ def initial_body_anaysis(url):
     soup3 = BeautifulSoup(page, features="lxml")
     
     # Title is stored in entry-header, body is stored in entry-content
+    global body
     body = soup3.find('div', class_='entry-content').text # Extract body and remove tags
-    #print(body)
 
     brackets = re.findall(r'\[.*?\]', body) # Extract bracketed text from body
+    
     #level = soup3.find(string=re.compile("levels")) # Extract sentences containing word 'level'
     #print(level)
 
@@ -101,12 +102,8 @@ def initial_body_anaysis(url):
 # Extract the body of a chapter, get sentences with [], return
 def training_data_extraction(url):
     print("Extract training data...\n")
-    page = urlopen(url)
-    soup3 = BeautifulSoup(page, features="lxml")
     
-    # Title is stored in entry-header, body is stored in entry-content
-    body = soup3.find('div', class_='entry-content').text # Extract body and remove tags
-    #print(body)
+    global body
 
     bracketReferences = re.findall(r"([^!?.]*\[.*?\][^.!?]*\.)", body)
     for ref in bracketReferences:
@@ -195,7 +192,7 @@ def main():
         print("Processed...%s\n" % fileTitle)
 
     writeContent.close()
-    print("Printed ", chapNum, " chapters.")
+    print("Processed", chapNum, "chapters.")
 
     print(totalWords)
     print(bracketList)
