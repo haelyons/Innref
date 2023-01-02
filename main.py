@@ -1,10 +1,7 @@
-from ast import parse
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
 
-
 import re
-from py import process
 
 """
 
@@ -202,11 +199,12 @@ if __name__ == "__main__":
 
 """
 
-To-do:
-
 END FEATURE SET GOALS:
 - Index of character specific Classes, Levels, and Skills with chapter references
-- Live total-word counter, per chapter word counter
+- Live total-stat counter for:
+    - Total current word count
+    - Average count per chapter
+    - Number of chapters
 
 SYSTEM VIEW:
 - Training a named entity recognition model based on the data extracted here
