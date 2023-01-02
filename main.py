@@ -17,15 +17,13 @@ Innref [-> WonderingInn] (main.py)
 # REGEX
 date_regex = r"(\d{4}/\d{2}/\d{2})"
 url_regex = re.compile("(\d{4}/\d{2}/\d{2})")
-bracket_regex = r'\[.*?\]'
-bracket_sentence_regex = r'([^!?.]*\[.*?\][^.!?]*\.)'
-
 
 # GLOBALS
 TOC = [] 
 urlTOC = 'https://wanderinginn.com/table-of-contents/'
 totalWords = 0
 chapsToPrint = 15 # = desired number of chapters to analyse + 1
+bracketList = []
 
 # LOCALS
 chapterWords = 0
@@ -73,7 +71,7 @@ def find_title(url):
 
     return delimited
 
-# Extract the body of a chapter, parse all square-bracketed text
+# Extract the body of a chapter, parse [], word-count, 'level' references, return brackets
 def initial_body_anaysis(url):
     print("Analysing chapter body...")
     page = urlopen(url)
@@ -83,14 +81,9 @@ def initial_body_anaysis(url):
     body = soup3.find('div', class_='entry-content').text # Extract body and remove tags
     print(body)
 
-    brackets = re.findall(bracket_regex, body) # Extract bracketed text from body
+    brackets = re.findall(r'\[.*?\]', body) # Extract bracketed text from body
     level = soup3.find(string=re.compile("levels")) # Extract sentences containing word 'level'
     print(level)
-
-    bracketReferences = re.findall(bracket_sentence_regex,body)
-    print(bracketReferences)
-    #bracketReferences = soup3.find(string=re.compile(r'\[.*?\]'))
-    #print(bracketReferences)
 
     # Calculate local chapter number + running sum
     chapterWords = 0
@@ -105,12 +98,14 @@ def initial_body_anaysis(url):
         
     return brackets
 
-# Extract the body of a chapter, parse all square-bracketed text
-def training_data_extraction(soup3, body):
+# Extract the body of a chapter, get sentences with [], return
+def training_data_extraction(url):
 
-    brackets = re.findall(r'\[.*?\]', body) # Extract bracketed text from body
-    level = soup3.find(string=re.compile("Level")) # Extract mentions of 'level' from body
-    print(level)
+    print("Analysing chapter body...")
+
+    # bracketReferences = re.findall(r"([^!?.]*\[.*?\][^.!?]*\.)", body)
+    for ref in bracketReferences:
+        print("%s\n", ref)
 
     """ Libraries, Training Data, Examples
     Stanford includes job title recognition, but this looks a bit rough (no real occupation support):
@@ -149,14 +144,14 @@ def training_data_extraction(soup3, body):
 
     """
     
-    return body
+    return bracketReferences
 
 def main():
-    print("Entering main...")
+    print("Entering main...\n")
     sortedTOC = process_toc(urlTOC)
-    print("\n")
 
     chapters = len(sortedTOC)
+    print("Current number of chapters: ", chapters, "\n")
 
     """ VOLUME CHAPTER NUMBERS:
     VOLUME 1: 1 - 66 
@@ -175,18 +170,30 @@ def main():
         title = find_title(sortedTOC[chapNum]) # Extract title
 
         brackets = initial_body_anaysis(sortedTOC[chapNum]) # Extract brackets
-        
+        bracketSentences = training_data_extraction(sortedTOC[chapNum]) # Extract sentences with brackets
+
         fileTitle = '{}.txt'.format(title) # Add title to text file
         with open(fileTitle, "w") as writeContent:
             for item in brackets: # Iterate through chapter specific array of bracketed text
                 writeContent.write("%s\n" % item)
-        print("Processed...%s" % fileTitle)
-        print("\n")
+
+            for item in bracketSentences:
+                writeContent.write("%s\n" % item)
+            
+            """
+            for single, sentence in zip(brackets, bracketSentences):
+                print(single, sentence)
+                bracketList.append(single, sentence)
+                writeContent.write("%s" % single, "%s" % sentence, "\n")
+            """
+
+        print("Processed...%s" % fileTitle, "\n")
 
     writeContent.close()
+    print("Printed ", chapNum, " chapters.")
 
     print(totalWords)
-    print(chapNum)
+    print(bracketList)
 
 if __name__ == "__main__":
     main()
