@@ -106,7 +106,7 @@ def training_data_extraction(soup3, body):
     level = soup3.find(string=re.compile("Level")) # Extract mentions of 'level' from body
     print(level)
 
-    """
+    """ Libraries, Training Data, Examples
     Stanford includes job title recognition, but this looks a bit rough (no real occupation support):
     http://corenlp.run/ -- soldier is recognised, but Mage is not, nor Necromancer, though they are also
     both recognised as Proper Nouns (NNP in Stanford NLP)
@@ -142,6 +142,7 @@ def training_data_extraction(soup3, body):
     ]
 
     """
+    
     return body
 
 def main():
