@@ -13,12 +13,17 @@ Innref [-> WonderingInn] (main.py)
 
 """
 
-END FEATURE SET GOALS:
+[Universal Data Tool](https://universaldatatool.com/app/) -- data annotation for images, text, etc
+[CoreNLP](http://corenlp.run) -- demo for part of speech and named entity extraction
+[Regular Expressions 101](https://regex101.com/) -- tool and debugger for regex expressions
+[Regexplained](https://www.regexplained.co.uk/) -- Visual explanation of regex explanations (great diagrams)
+
+GOALS:
 - Index of character specific Classes, Levels, and Skills with chapter references
 - Live total-stat counter for: total current word count, average count per chapter, 
   number of chapters
 
-ITERATING ON CURRENT FEATURE SET:
+CURRENT TO-DO:
 1. Speed up process of getting chapter information. The sooner this is done,
    the easier it will be to implement
 
