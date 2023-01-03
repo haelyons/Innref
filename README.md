@@ -26,10 +26,6 @@ The author provides explicit permissions for the transformation of this text.
 
 > You may not use any copyrighted materials, including interior art and text, from my books or website. There are two exceptions to the above rule: [...] when they are used for non-commercial or promotional purposes for fan websites, fan conventions, and scholarly, web-based endeavors like podcasts.
 
-
-As you may suspect, there is a lot to do...   :)
-
-
   ## Instructions TODO
 - Basic python installation (check version)
 - spaCy dependencies
