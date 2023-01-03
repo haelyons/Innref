@@ -3,7 +3,7 @@ from urllib.request import urlopen
 
 import re
 
-"""
+""" DOC
 
 Hélios Lyons
 27/12/22
@@ -11,7 +11,7 @@ Innref [-> WonderingInn] (main.py)
 
 """
 
-"""
+""" TODO
 
 [Universal Data Tool](https://universaldatatool.com/app/) -- data annotation for images, text, etc
 [CoreNLP](http://corenlp.run) -- demo for part of speech and named entity extraction
