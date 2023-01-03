@@ -12,9 +12,10 @@ The idea for this tool comes from a combination of these markers, and the curren
 Build a web interface with a stats page and search engine that provide:
 - Live stats on the total word count, the avg. count per chapter, the number of chapters, etc
 - The ability to track chapter references to Classes and Skills using a search bar
-
 (to differentiate from community alternatives)
 - The ability to link Class and Skill references to specific characters
+
+
 
 
   ## Community
@@ -35,8 +36,8 @@ The author provides explicit permissions for the transformation of this text.
 - spaCy dependencies
 
   ## Online Resources
-[Universal Data Tool](https://universaldatatool.com/app/) -- data annotation for images, text, etc
-[CoreNLP](http://corenlp.run) -- demo for part of speech and named entity extraction
-[Regular Expressions 101](https://regex101.com/) -- tool and debugger for regex expressions
+[Universal Data Tool](https://universaldatatool.com/app/) -- data annotation for images, text, etc <br/>
+[CoreNLP](http://corenlp.run) -- demo for part of speech and named entity extraction <br/>
+[Regular Expressions 101](https://regex101.com/) -- tool and debugger for regex expressions <br/>
 [Regexplained](https://www.regexplained.co.uk/) -- Visual explanation of regex explanations (great diagrams)
 
