@@ -23,7 +23,7 @@ There is a tool by jonchang available [on Github](https://wanderinginn.neocities
 
 Other TWI trackers:
 https://wandering-inn-statistics.aris.moe/ -- detailed Class and Skill references
-https://inndex.omg.lol/toc#stats -- overall statistics
+https://inndex.omg.lol/toc#stats -- overall statistics <br/>
 
 
   ## Copyright
