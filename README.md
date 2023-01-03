@@ -20,6 +20,10 @@ Build a web interface with a stats page and search engine that provide:
   ## Community
 There is a tool by jonchang available [on Github](https://wanderinginn.neocities.org) that provides a detailed list of the changes made to each chapter of TWI, as well as an updated word count. 
 
+Other TWI trackers:
+https://wandering-inn-statistics.aris.moe/ -- detailed Class and Skill references
+https://inndex.omg.lol/toc#stats -- overall statistics
+
 
   ## Copyright
 The author provides explicit permissions for the transformation of this text.
