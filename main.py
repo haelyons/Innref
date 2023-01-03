@@ -9,6 +9,11 @@ Hélios Lyons
 27/12/22
 Innref [-> WonderingInn] (main.py)
 
+[Universal Data Tool](https://universaldatatool.com/app/) -- data annotation for images, text, etc
+[CoreNLP](http://corenlp.run) -- demo for part of speech and named entity extraction
+[Regular Expressions 101](https://regex101.com/) -- tool and debugger for regex expressions
+[Regexplained](https://www.regexplained.co.uk/) -- Visual explanation of regex explanations (great diagrams)
+
 """
 
 # REGEX
