@@ -22,7 +22,7 @@ Build a web interface with a stats page and search engine that provide:
 There is a tool by jonchang available [on Github](https://wanderinginn.neocities.org) that provides a detailed list of the changes made to each chapter of TWI, as well as an updated word count. 
 
 Other TWI trackers:
-https://wandering-inn-statistics.aris.moe/ -- detailed Class and Skill references
+https://wandering-inn-statistics.aris.moe/ -- detailed Class and Skill references. IMO, the main thing this is missing is a character screen that shows a progression of Classes and Skills for each chapter.
 https://inndex.omg.lol/toc#stats -- overall statistics <br/>
 
 
