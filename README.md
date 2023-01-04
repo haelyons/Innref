@@ -13,7 +13,7 @@ Build a web interface with a stats page and search engine that provide:
 - Live stats on the total word count, the avg. count per chapter, the number of chapters, etc
 - The ability to track chapter references to Classes and Skills using a search bar
 (to differentiate from community alternatives)
-- The ability to link Class and Skill references to specific characters
+- The ability to link Class and Skill references to specific characters <br/>
 
 
 
