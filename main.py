@@ -47,6 +47,8 @@ https://docs.google.com/document/d/12S1_J-qbng38_hZ9PT89PKkrwl4sMXRMc2Epe10xWfQ/
 date_regex = r"(\d{4}/\d{2}/\d{2})"
 url_regex = re.compile("(\d{4}/\d{2}/\d{2})")
 
+# PRIORITY - WRITE TO DATA STRUCTURE INSTEAD OF FILE, MAKE A DICT
+
 # GLOBALS
 TOC = [] 
 urlTOC = 'https://wanderinginn.com/table-of-contents/'
