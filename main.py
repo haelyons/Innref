@@ -17,7 +17,9 @@ Innref [-> WonderingInn] (main.py)
 [CoreNLP](http://corenlp.run) -- demo for part of speech and named entity extraction
 [Regular Expressions 101](https://regex101.com/) -- tool and debugger for regex expressions
 [Regexplained](https://www.regexplained.co.uk/) -- Visual explanation of regex explanations (great diagrams)
+
 [Wandering Inn Retcon Tracker](https://wanderinginn.neocities.org/) -- Existing TWI tracker website
+[Wnadering Inn Statistics] (https://wandering-inn-statistics.aris.moe/) -- Closest to the goal of this tool
 
 GOALS:
 - Index of character specific Classes, Levels, and Skills with chapter references
@@ -37,6 +39,15 @@ CURRENT TO-DO:
    characters not previously known. The distinction is mainly for training purposes, where
    for paragraph references we present the sentence, and for independent references we have
    the same label and example.
+
+COMPARISON WITH TWI-STATS TOOL:
+- This tool has some great code for identifying:
+    Classes and Skills being obtained, Character Names, Occurences of Skills / Classes related to
+    characters, mentions of Classes / Skills / Characters as well as differentiating between
+    Skills and Classes, and between one-off vs. frequently mentioned Skills
+    
+- Need to respec current goals to align w the fact that this exists, and figure out what's missing.
+
 
 Documentation:
 https://docs.google.com/document/d/12S1_J-qbng38_hZ9PT89PKkrwl4sMXRMc2Epe10xWfQ/edit 
