@@ -45,7 +45,7 @@ COMPARISON WITH TWI-STATS TOOL:
     Classes and Skills being obtained, Character Names, Occurences of Skills / Classes related to
     characters, mentions of Classes / Skills / Characters as well as differentiating between
     Skills and Classes, and between one-off vs. frequently mentioned Skills
-    
+
 - Need to respec current goals to align w the fact that this exists, and figure out what's missing.
 
 
@@ -151,7 +151,7 @@ def training_data_extraction(url):
     for ref in bracketReferences:
         print("%s\n", ref)
 
-    """ Libraries, Training Data, Examples
+    """ NLP NER ideation:
     Stanford includes job title recognition, but this looks a bit rough (no real occupation support):
     http://corenlp.run/ -- soldier is recognised, but Mage is not, nor Necromancer, though they are also
     both recognised as Proper Nouns (NNP in Stanford NLP)
