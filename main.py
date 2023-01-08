@@ -71,22 +71,23 @@ bracketList = []
 chapterWords = 0
 body = "stripped chapter body"
 
-# Parse table of contents to only include chapters and write to file
+# Parse TOC to only include chapters, return array of sorted URLs
 def process_toc(url):
     print("Processing TOC (Table of Contents)...")
     page = urlopen(urlTOC).read()
     soup = BeautifulSoup(page, features="lxml")
     soup.prettify()
 
-    # Iterate through TOC and collect chapter URLS
+    # Iterate through TOC web page and get URLs
     for anchor in soup.findAll('a', href=True):
         anchor['href']
         TOC.append(anchor['href'])
 
-    # Only take URLS with dates (chapters, glossary) -- most recent is duplicate
+    # Only take URLS with dates (chapters, glossary)
     sortedTOC = list(filter(url_regex.search, TOC))
     splitTOC = sortedTOC[sortedTOC.index('https://wanderinginn.com/2016/07/27/1-00/'):]
 
+    # Remove duplicates
     cleanTOC = [x for x in splitTOC if "glossary" not in x]
 
     with open("TOC.txt", "w") as writeTOC:
@@ -109,9 +110,9 @@ def find_title(url):
     # Extract chapter title
     title = soup2.title.string
     # chapter_code = re.findall("\d+\.\d+", title)
-    delimited = title.split('|',1)[0]
+    delimited_title = title.split('|',1)[0]
 
-    return delimited
+    return delimited_title
 
 # Extract the body of a chapter, parse [], word-count, 'level' references, return brackets
 def initial_body_anaysis(url):
@@ -119,16 +120,14 @@ def initial_body_anaysis(url):
     page = urlopen(url)
     soup3 = BeautifulSoup(page, features="lxml")
     
-    # Title is stored in entry-header, body is stored in entry-content
     global body
     body = soup3.find('div', class_='entry-content').text # Extract body and remove tags
 
-    brackets = re.findall(r'\[.*?\]', body) # Extract bracketed text from body
+    brackets = re.findall(r'\[.*?\]', body) # Extract any bracketed text from body
     
     #level = soup3.find(string=re.compile("levels")) # Extract sentences containing word 'level'
-    #print(level)
 
-    # Calculate local chapter number + running sum
+    # Calculate local chapter number + running total
     chapterWords = 0
     words = re.findall('\w+', body)
     chapterWords = len(words)
@@ -147,9 +146,10 @@ def training_data_extraction(url):
     
     global body
 
+    # Extract the whole sentence of a bracketed
     bracketReferences = re.findall(r"([^!?.]*\[.*?\][^.!?]*\.)", body)
     for ref in bracketReferences:
-        print("%s\n", ref)
+        print(ref, "\n")
 
     """ NLP NER ideation:
     Stanford includes job title recognition, but this looks a bit rough (no real occupation support):
@@ -212,10 +212,15 @@ def main():
     # Run extraction functions and write to file
     for chapNum in range(chapsToPrint):
         title = find_title(sortedTOC[chapNum]) # Extract title
+        print("\n", title)
 
         brackets = initial_body_anaysis(sortedTOC[chapNum]) # Extract brackets
         bracketSentences = training_data_extraction(sortedTOC[chapNum]) # Extract sentences with brackets
 
+        global bracketList
+        bracketList.append(brackets)
+
+        """
         fileTitle = '{}.txt'.format(title) # Add title to text file
         with open(fileTitle, "w") as writeContent:
             for bracket in brackets:
@@ -224,17 +229,21 @@ def main():
             for sentence in bracketSentences:
                 writeContent.write("%s\n" % sentence)
             
-            """
+            
             for single, sentence in zip(brackets, bracketSentences):
                 print(single, sentence)
                 bracketList.append(single, sentence)
                 writeContent.write("%s" % single, "%s" % sentence, "\n")
-            """
+            
 
         print("Processed...%s\n" % fileTitle)
 
     writeContent.close()
-    print("Processed", chapNum, "chapters.")
+    """
+    
+    print("Processed", chapNum, "chapters.\n")
+
+    print("occurences of the Innkeeper class in existing processed text: ", bracketList.count("['[Innkeeper]']\n"))
 
     print(totalWords)
     print(bracketList)
