@@ -61,7 +61,7 @@ url_regex = re.compile("(\d{4}/\d{2}/\d{2})")
 # PRIORITY - WRITE TO DATA STRUCTURE INSTEAD OF FILE, MAKE A DICT
 
 # GLOBALS
-TOC = [] 
+TOC = []
 urlTOC = 'https://wanderinginn.com/table-of-contents/'
 totalWords = 0
 chapsToPrint = 15 # = desired number of chapters to analyse + 1
@@ -116,7 +116,7 @@ def find_title(url):
 
 # Extract the body of a chapter, parse [], word-count, 'level' references, return brackets
 def initial_body_anaysis(url):
-    print("Analysing chapter body...")
+    print("\n")
     page = urlopen(url)
     soup3 = BeautifulSoup(page, features="lxml")
     
@@ -124,7 +124,9 @@ def initial_body_anaysis(url):
     body = soup3.find('div', class_='entry-content').text # Extract body and remove tags
 
     brackets = re.findall(r'\[.*?\]', body) # Extract any bracketed text from body
-    
+    for ref in brackets:
+        print(ref, "\n")
+
     #level = soup3.find(string=re.compile("levels")) # Extract sentences containing word 'level'
 
     # Calculate local chapter number + running total
@@ -142,7 +144,7 @@ def initial_body_anaysis(url):
 
 # Extract the body of a chapter, get sentences with [], return
 def training_data_extraction(url):
-    print("Extract training data...\n")
+    print("Complete references:\n")
     
     global body
 
