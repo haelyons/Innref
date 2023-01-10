@@ -147,8 +147,7 @@ def training_data_extraction(url):
     print("Complete references:\n")
     
     global body
-
-    # Extract the whole sentence of a bracketed
+    # Extract the whole sentence of a bracket
     bracketReferences = re.findall(r"([^!?.]*\[.*?\][^.!?]*\.)", body)
     for ref in bracketReferences:
         print(ref, "\n")
