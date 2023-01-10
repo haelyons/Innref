@@ -65,7 +65,6 @@ TOC = []
 urlTOC = 'https://wanderinginn.com/table-of-contents/'
 totalWords = 0
 chapsToPrint = 15 # = desired number of chapters to analyse + 1
-bracketList = []
 
 # LOCALS
 chapterWords = 0
@@ -151,6 +150,8 @@ def training_data_extraction(url):
     bracketReferences = re.findall(r"([^!?.]*\[.*?\][^.!?]*\.)", body)
     for ref in bracketReferences:
         print(ref, "\n")
+        if bracketReferences.__len__ <= 0:
+            print("None\n")
 
     """ NLP NER ideation:
     Stanford includes job title recognition, but this looks a bit rough (no real occupation support):
@@ -218,7 +219,7 @@ def main():
         brackets = initial_body_anaysis(sortedTOC[chapNum]) # Extract brackets
         bracketSentences = training_data_extraction(sortedTOC[chapNum]) # Extract sentences with brackets
 
-        global bracketList
+        bracketList = []
         bracketList.append(brackets)
 
         """
