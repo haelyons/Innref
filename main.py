@@ -50,6 +50,8 @@ class_level_up_2 = r"\[Level (?<level>\d+) (?<class>[^\]\[]+)!\]"
 
 # PRIORITY - WRITE TO DATA STRUCTURE INSTEAD OF FILE, MAKE A DICT
 
+# MASTER LIST OF CLASSES, SKILLS, and CHARACTERS
+
 # GLOBALS
 TOC = []
 urlTOC = 'https://wanderinginn.com/table-of-contents/'
