@@ -26,19 +26,6 @@ GOALS:
 - Live total-stat counter for: total current word count, average count per chapter, 
   number of chapters
 
-CURRENT TO-DO:
-1. Speed up process of getting chapter information. The sooner this is done,
-   the easier it will be to implement
-
-2. Need to distinguish between types of bracketed references. There seem to be 2:
-    - As part of a paragraph, often spoken by a character or narrated
-    - Received as level-ups 'in their head' - not as part of a paragraph.
-   
-   The distinction here is not huge, because character level-ups are not always received
-   'on screen', so both paragraph and independent references can reveal information about 
-   characters not previously known. The distinction is mainly for training purposes, where
-   for paragraph references we present the sentence, and for independent references we have
-   the same label and example.
 
 COMPARISON WITH TWI-STATS TOOL:
 - This tool has some great code for identifying:
@@ -58,6 +45,9 @@ https://docs.google.com/document/d/12S1_J-qbng38_hZ9PT89PKkrwl4sMXRMc2Epe10xWfQ/
 date_regex = r"(\d{4}/\d{2}/\d{2})"
 url_regex = re.compile("(\d{4}/\d{2}/\d{2})")
 
+class_level_up = r"\[(?<class>[^\]\[]+) Level (?<level>\d+)!\]"
+class_level_up_2 = r"\[Level (?<level>\d+) (?<class>[^\]\[]+)!\]"
+
 # PRIORITY - WRITE TO DATA STRUCTURE INSTEAD OF FILE, MAKE A DICT
 
 # GLOBALS
@@ -65,6 +55,36 @@ TOC = []
 urlTOC = 'https://wanderinginn.com/table-of-contents/'
 totalWords = 0
 chapsToPrint = 15 # = desired number of chapters to analyse + 1
+bracketList = []
+
+raceList =[
+            "Antinium",
+            "Beastkin",
+            "Centaur",
+            "Demon",
+            "Djinn",
+            "Dragon",
+            "Drake",
+            "Dullahan",
+            "Dwarf",
+            "Elf",
+            "Garuda",
+            "Gazer",
+            "Gnoll",
+            "Goblin",
+            "Harpy",
+            "Halfling",
+            "Human",
+            "Jinn",
+            "Minotaur",
+            "Naga",
+            "Oldblood",
+            "Rashkghar",
+            "Scorchling",
+            "Selphid",
+            "Troll",
+            "Vampire",
+            "male" ]
 
 # LOCALS
 chapterWords = 0
@@ -149,9 +169,10 @@ def training_data_extraction(url):
     # Extract the whole sentence of a bracket
     bracketReferences = re.findall(r"([^!?.]*\[.*?\][^.!?]*\.)", body)
     for ref in bracketReferences:
-        print(ref, "\n")
-        if bracketReferences.__len__ <= 0:
-            print("None\n")
+        if bracketReferences:
+            print(ref, "\n")
+        else:
+            print("None")
 
     """ NLP NER ideation:
     Stanford includes job title recognition, but this looks a bit rough (no real occupation support):
@@ -219,10 +240,10 @@ def main():
         brackets = initial_body_anaysis(sortedTOC[chapNum]) # Extract brackets
         bracketSentences = training_data_extraction(sortedTOC[chapNum]) # Extract sentences with brackets
 
-        bracketList = []
         bracketList.append(brackets)
+        print(bracketList)
 
-        """
+        """ WRITE TO FILE
         fileTitle = '{}.txt'.format(title) # Add title to text file
         with open(fileTitle, "w") as writeContent:
             for bracket in brackets:
@@ -251,4 +272,5 @@ def main():
     print(bracketList)
 
 if __name__ == "__main__":
+
     main()
